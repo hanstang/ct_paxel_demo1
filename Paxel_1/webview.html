@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<head>
+  <link rel="manifest" href="/manifest.json">
+  
+  <style type="text/css">
+  @media (min-width: 1024px) {
+    .wzrk-overlay {
+      backdrop-filter: blur(6px) !important;
+      background-color: rgba(0,0,0,.50) !important;
+    }
+    /*header*/
+    .wzrk-alert-heading{
+    color: black !important;
+    font-weight: bold !important;
+    }
+    /*Body*/
+    .wzrk-alert-body{
+    color: black !important;
+    font-style: italic !important;
+    }
+    
+    .wzrk-alert.wiz-show-animate{
+    position: fixed !important;
+    background: rgb(255, 253, 62) !important;
+    left: 50% !important;
+    top: 40% !important;
+    width: 80% !important;
+    transform: translate(-50%, -50%) !important;
+    }
+    /*yes*/
+    .Sign{
+    color: white !important;
+    font-family: Arial !important ;
+    background-color: rgb(77, 28, 246) !important;
+    border-radius: 12px !important;
+    border: 2px solid rgb(250,120,125) !important;
+    }
+  
+    /*no*/
+    #wzrk-cancel{
+    border: 2px solid rgb(250,120,125) !important;
+    /*
+    border-style: solid !important;
+    border-color: rgb(250,120,125) !important;
+    border-width: 2px !important;*/
+    }
+    .No{
+    color: rgb(250,120,125) !important;
+    font-family: Arial !important ;
+    background-color: rgb(255, 253, 62) !important;
+    border-radius: 12px !important;
+    }
+  }
+  </style>
+</head>
+<!--<script src="clevertap_sw.js"></script>-->
+<script type="text/javascript">
+if (!window.CleverTapWebView)
+{
+    var clevertap = {event:[], profile:[], region:'eu1' ,account:[], onUserLogin:[], notifications:[], privacy:[]};
+    // replace with the CLEVERTAP_ACCOUNT_ID with the actual ACCOUNT ID value from your Dashboard -> Settings page
+    clevertap.account.push({"id": "RK4-45K-W56Z"});
+    //clevertap.account.push({"id": "W67-774-7Z5Z"});
+    clevertap.privacy.push({optOut: false}); //set the flag to true, if the user of the device opts out of sharing their data
+    clevertap.privacy.push({useIP: false}); //set the flag to true, if the user agrees to share their IP data
+    clevertap.enablePersonalization = true; // enables Personalization
+    (function () {
+            var wzrk = document.createElement('script');
+            wzrk.type = 'text/javascript';
+            wzrk.async = true;
+            wzrk.src = ('https:' == document.location.protocol ? 'https://d2r1yp2w7bby2u.cloudfront.net' : 'http://static.clevertap.com') + '/js/clevertap.min.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(wzrk, s);
+    })();
+}   
+</script>
+<html>
+    <body onload="onLoadFunction()">
+        <h1>PAXEL 1</h1>
+        <h3 id="currentID">Clevertap ID is : </h3>
+        <br>
+        <p id="agent"></p>
+        <button onclick="SendEventFunction()">Send Event</button>
+        <br><br><br>
+        <!--<button onclick="LoginOther()">Login other user</button>-->
+        <script>
+            function onLoadFunction() {
+                Agent = navigator?.userAgent || window?.navigator?.userAgent;
+                console.log(Agent);
+                document.getElementById("agent").innerText = Agent
+                var currentID = document.getElementById("currentID");
+                if(window.CleverTapWebView){
+                    CleverTapWebView.pushEvent("WebView Main Activity Open App");
+                    currentID.textContent += "ID is from APP";
+                }
+                else{
+                    clevertap.event.push("WebView Main Activity Open Web");
+                    currentID.textContent += clevertap.getCleverTapID();
+                }
+            }
+            
+            function SendEventFunction() {
+                if(window.CleverTapWebView){
+                    CleverTapWebView.pushEvent("webview event App");
+                }
+                else{
+                    clevertap.event.push("webview event Web");
+                }
+            }
+            function LoginOther(){
+                if(window.CleverTapWebView){
+                    var props = {Identity: '12434', Email: 'xyz@xyz.com'};
+                    CleverTapWebView.onUserLogin(JSON.stringify(props));
+                }
+                else{
+                    alert("not load from app");
+                }
+            }
+        </script>
+    </body>
+</html>
