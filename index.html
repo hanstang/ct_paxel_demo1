@@ -1,59 +1,48 @@
-<!DOCTYPE html>
-<head>
-  <link rel="manifest" href="/manifest.json">
-  
-  <style type="text/css">
-  @media (min-width: 1024px) {
-    .wzrk-overlay {
-      backdrop-filter: blur(6px) !important;
-      background-color: rgba(0,0,0,.50) !important;
-    }
-    /*header*/
-    .wzrk-alert-heading{
-    color: black !important;
-    font-weight: bold !important;
-    }
-    /*Body*/
-    .wzrk-alert-body{
-    color: black !important;
-    font-style: italic !important;
-    }
-    
-    .wzrk-alert.wiz-show-animate{
-    position: fixed !important;
-    background: rgb(255, 253, 62) !important;
-    left: 50% !important;
-    top: 40% !important;
-    width: 80% !important;
-    transform: translate(-50%, -50%) !important;
-    }
-    /*yes*/
-    .Sign{
-    color: white !important;
-    font-family: Arial !important ;
-    background-color: rgb(77, 28, 246) !important;
-    border-radius: 12px !important;
-    border: 2px solid rgb(250,120,125) !important;
-    }
-  
-    /*no*/
-    #wzrk-cancel{
-    border: 2px solid rgb(250,120,125) !important;
-    /*
-    border-style: solid !important;
-    border-color: rgb(250,120,125) !important;
-    border-width: 2px !important;*/
-    }
-    .No{
-    color: rgb(250,120,125) !important;
-    font-family: Arial !important ;
-    background-color: rgb(255, 253, 62) !important;
-    border-radius: 12px !important;
-    }
-  }
-  </style>
-</head>
-<!--<script src="clevertap_sw.js"></script>-->
+<!DOCTYPE html>   
+<html>   
+<head>  
+<meta name="viewport" content="width=device-width, initial-scale=1">  
+<title> Login Page </title>  
+<style>   
+Body {  
+  font-family: Calibri, Helvetica, sans-serif;  
+  background-color: pink;  
+}  
+button {   
+       background-color: #4CAF50;   
+       width: 100%;  
+        color: orange;   
+        padding: 15px;   
+        margin: 10px 0px;   
+        border: none;   
+        cursor: pointer;   
+         }   
+ form {   
+        border: 3px solid #f1f1f1;   
+    }   
+ input[type=text], input[type=password] {   
+        width: 100%;   
+        margin: 8px 0;  
+        padding: 12px 20px;   
+        display: inline-block;   
+        border: 2px solid green;   
+        box-sizing: border-box;   
+    }  
+ button:hover {   
+        opacity: 0.7;   
+    }   
+  .cancelbtn {   
+        width: auto;   
+        padding: 10px 18px;  
+        margin: 10px 5px;  
+    }   
+        
+     
+ .container {   
+        padding: 25px;   
+        background-color: lightblue;  
+    }   
+</style>  
 <script type="text/javascript">
 if (!window.CleverTapWebView)
 {
@@ -73,49 +62,69 @@ if (!window.CleverTapWebView)
             s.parentNode.insertBefore(wzrk, s);
     })();
 }   
-</script>
-<html>
-    <body onload="onLoadFunction()">
-        <h1>PAXEL 1</h1>
-        <h3 id="currentID">Clevertap ID is : </h3>
-        <br>
-        <p id="agent"></p>
-        <button onclick="SendEventFunction()">Send Event</button>
-        <br><br><br>
-        <!--<button onclick="LoginOther()">Login other user</button>-->
-        <script>
-            function onLoadFunction() {
-                Agent = navigator?.userAgent || window?.navigator?.userAgent;
-                console.log(Agent);
-                document.getElementById("agent").innerText = Agent
-                var currentID = document.getElementById("currentID");
-                if(window.CleverTapWebView){
-                    CleverTapWebView.pushEvent("WebView Main Activity Open App");
-                    currentID.textContent += "ID is from APP";
-                }
-                else{
-                    clevertap.event.push("WebView Main Activity Open Web");
-                    currentID.textContent += clevertap.getCleverTapID();
-                }
-            }
-            
-            function SendEventFunction() {
-                if(window.CleverTapWebView){
-                    CleverTapWebView.pushEvent("webview event App");
-                }
-                else{
-                    clevertap.event.push("webview event Web");
-                }
-            }
-            function LoginOther(){
-                if(window.CleverTapWebView){
-                    var props = {Identity: '12434', Email: 'xyz@xyz.com'};
-                    CleverTapWebView.onUserLogin(JSON.stringify(props));
-                }
-                else{
-                    alert("not load from app");
-                }
-            }
-        </script>
-    </body>
-</html>
+</script> 
+</head>    
+<body onload="onLoadFunction()">    
+    <center> <h1> Paxel 1 </h1> </center>
+    <h3 id="currentID">Clevertap ID is : </h3>
+    <p id="agent"></p>   
+        <div class="container" id="login_form">   
+            <label>Identity : </label>   
+            <input type="text" placeholder="Enter Username" name="username" required id="identity">  
+            <label>Password : </label>   
+            <input type="password" placeholder="Enter Password" name="password" required>  
+            <button onclick="onLoginFunction()">Login</button>
+        </div>
+        <button onclick="SendEventFunction()">Send Event</button>         
+</body>
+<script>
+    function onLoadFunction() {
+        Agent = navigator?.userAgent || window?.navigator?.userAgent;
+        console.log(Agent);
+        document.getElementById("agent").innerText = Agent
+        var currentID = document.getElementById("currentID");
+        if(window.CleverTapWebView){
+            CleverTapWebView.pushEvent("WebView Main Activity Open App");
+            currentID.textContent += "ID is from APP";
+
+            document.getElementById("login_form").innerHTML = "";
+        }
+        else{
+            clevertap.event.push("WebView Main Activity Open Web");
+            currentID.textContent += clevertap.getCleverTapID();
+        }
+    }
+    function SendEventFunction() {
+        if(window.CleverTapWebView){
+            CleverTapWebView.pushEvent("event From Webview");
+        }
+        else{
+            clevertap.event.push("event From Web");
+        }
+    }
+
+    function onLoginFunction() {
+      var identity = document.getElementById("identity").value;
+      
+      clevertap.onUserLogin.push({
+       "Site": {
+          "Identity": identity,
+       }
+      });
+
+      var currentID = document.getElementById("currentID");
+      currentID.textContent = "Clevertap ID is : " +clevertap.getCleverTapID();
+      //alert("name : " + name + "\n email :" + email + "\n identity : " + identity);
+    }
+
+    function LoginOther(){
+        if(window.CleverTapWebView){
+            var props = {Identity: '12434', Email: 'xyz@xyz.com'};
+            CleverTapWebView.onUserLogin(JSON.stringify(props));
+        }
+        else{
+            alert("not load from app");
+        }
+    }
+</script>     
+</html>  
