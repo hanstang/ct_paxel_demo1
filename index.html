@@ -89,7 +89,7 @@ if (!window.CleverTapWebView)
 </script> 
 </head>    
 <body onload="onLoadFunction()">    
-    <center> <h1> Paxel 1 </h1> </center>
+    <center> <h1> Paxel Market</h1> </center>
     <h3 id="currentID">Clevertap ID is : </h3>
     <p id="agent"></p>   
         <div class="container" id="login_form">   
@@ -99,7 +99,11 @@ if (!window.CleverTapWebView)
             <input type="password" placeholder="Enter Password" name="password" required>  
             <button onclick="onLoginFunction()">Login</button>
         </div>
-        <button onclick="SendEventFunction()">Send Event</button>         
+        <button onclick="SendEventFunction()">Send Event</button>     
+        <button onclick="SendEventFunctionAddtoCartProduct1()">Add to cart product 1</button>
+        <button onclick="SendEventFunctionAddtoCartProduct2()">Add to cart product 2</button>
+        <button onclick="SendEventFunctionAddtoCartProduct3()">Add to cart product 3</button>
+        <button onclick="SendEventFunctionCheckout()">Checkout</button>
 </body>
 <script>
     function onLoadFunction() {
@@ -108,13 +112,13 @@ if (!window.CleverTapWebView)
         document.getElementById("agent").innerText = Agent
         var currentID = document.getElementById("currentID");
         if(window.CleverTapWebView){
-            CleverTapWebView.pushEvent("WebView Main Activity Open App Paxel 1");
+            CleverTapWebView.pushEvent("Open Paxel Market from Webview");
             currentID.textContent += "ID is from APP";
 
             document.getElementById("login_form").innerHTML = "";
         }
         else{
-            clevertap.event.push("WebView Main Activity Open Web Paxel 1");
+            clevertap.event.push("Open Paxel Market from Web");
             currentID.textContent += clevertap.getCleverTapID();
             clevertap.notifications.push({
         "titleText":'Would you like to receive Push Notifications?',
@@ -128,10 +132,46 @@ if (!window.CleverTapWebView)
     }
     function SendEventFunction() {
         if(window.CleverTapWebView){
-            CleverTapWebView.pushEvent("Event From Webview Paxel 1");
+            CleverTapWebView.pushEvent("Event From Webview Paxel Market");
         }
         else{
-            clevertap.event.push("Event From Web Paxel 1");
+            clevertap.event.push("Event From Web Paxel Market");
+        }
+    }
+
+    function SendEventFunctionAddtoCartProduct1() {
+        if(window.CleverTapWebView){
+            CleverTapWebView.pushEvent("Add to cart produt 1 Webview");
+        }
+        else{
+            clevertap.event.push("Add to cart produt 1 Web");
+        }
+    }
+
+    function SendEventFunctionAddtoCartProduct2() {
+        if(window.CleverTapWebView){
+            CleverTapWebView.pushEvent("Add to cart produt 2 Webview");
+        }
+        else{
+            clevertap.event.push("Add to cart produt 2 Web");
+        }
+    }
+
+    function SendEventFunctionAddtoCartProduct3() {
+        if(window.CleverTapWebView){
+            CleverTapWebView.pushEvent("Add to cart produt 3 Webview");
+        }
+        else{
+            clevertap.event.push("Add to cart produt 3 Web");
+        }
+    }
+
+    function SendEventFunctionCheckout(){
+        if(window.CleverTapWebView){
+            CleverTapWebView.pushEvent("Checkout Webview");
+        }
+        else{
+            clevertap.event.push("Checkout Web");
         }
     }
 
