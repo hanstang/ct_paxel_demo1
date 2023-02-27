@@ -122,7 +122,8 @@ if (!window.CleverTapWebView)
         else{
             clevertap.event.push("Open Paxel Market from Web");
             currentID.textContent += clevertap.getCleverTapID();
-            clevertap.notifications.push({
+        }
+        clevertap.notifications.push({
         "titleText":'Would you like to receive Push Notifications?',
         "bodyText":'We promise to only send you relevant content and give you updates on your transactions',
         "okButtonText":'Sign me up!',
@@ -130,7 +131,6 @@ if (!window.CleverTapWebView)
         "okButtonColor":'#f28046',
         "askAgainTimeInSeconds":5,
         "serviceWorkerPath": "clevertap_sw.js"});
-        }
     }
     function SendEventFunction() {
         if(window.CleverTapWebView){
